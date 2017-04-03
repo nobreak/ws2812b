@@ -1,8 +1,6 @@
-# NeoPixel library strandtest example
-# Author: Tony DiCola (tony@tonydicola.com)
+# rotation lamp for two colors
+# Author: Philipp Homann 
 #
-# Direct port of the Arduino NeoPixel library strandtest example.  Showcases
-# various animations on a strip of NeoPixels.
 import time
 
 from neopixel import *
