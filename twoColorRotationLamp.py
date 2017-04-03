@@ -35,6 +35,13 @@ def twoColorRotationLamp(strip, color1, color2, countPixelColor1):
     strip.show()  # activate now all pixels with configured colors
     time.sleep(1.0125) # wait some (animation) time
 
+  # the following loop realized the animation of a coolection of pixels
+  # with the same color over the end of the strip and starting again
+  # at the beginning on the strip
+  # we animated now the first setup pixel to the end of the strip
+  # so we switched the color of the last pixel of this color collection to color 2
+  # and do this step by step for all the other pixels with the same color
+  # additionally we start again with color 1 at the first pixel of the strip
   for k in range(strip.numPixels()-countPixelColor1-1, strip.numPixels()):
     strip.setPixelColor(k, color2)
     strip.setPixelColor((strip.numPixels()-k-countPixelColor1)*-1, color1)
