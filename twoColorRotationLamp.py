@@ -22,18 +22,26 @@ LED_INVERT     = False   # True to invert the signal (when using NPN transistor 
 # color2 - second color
 # countPixelColor1 - count of pixels for color1, the count of pixels for color 2 will be calculated by LED_COUNT
 def twoColorRotationLamp(strip, color1, color2, countPixelColor1):
-  for i in range(countPixelColor1-1, strip.numPixels()): # loop for all needed pixels
+  # loop for all needed pixels
+  for i in range(countPixelColor1-1, strip.numPixels()):
     strip.setPixelColor(i, color1)  # set first pixel with color1 starting at the latest pixel
-    for j in range(i-1, i-countPixelColor1, -1): # set all pixel before with the same color 1
+    
+    # set all pixel before with the same color 1
+    for j in range(i-1, i-countPixelColor1, -1): 
       strip.setPixelColor(j, color1)
-    strip.setPixelColor(i-countPixelColor1, color2) # now set all pixels before colored1 pixels with color2 (for the first loop, it makes no sence, because there is no pixel before position 0, but after the first loop, we now can switch the first pixel from color1 to color2
+    
+    # now set all pixels before colored1 pixels with color2
+    # (for the first loop, it makes no sence, because there is no pixel before position 0,
+    # but after the first loop, we now can switch the first pixel from color1 to color2
+    strip.setPixelColor(i-countPixelColor1, color2) 
     strip.show()  # activate now all pixels with configured colors
-    time.sleep(0.0125) # wait some (animation) time
+    time.sleep(1.0125) # wait some (animation) time
+
   for k in range(strip.numPixels()-countPixelColor1-1, strip.numPixels()):
     strip.setPixelColor(k, color2)
     strip.setPixelColor((strip.numPixels()-k-countPixelColor1)*-1, color1)
     strip.show()
-    time.sleep(0.0125)
+    time.sleep(1.0125)
 
 
 # Main program logic follows:
