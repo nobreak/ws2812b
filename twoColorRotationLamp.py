@@ -19,7 +19,8 @@ LED_INVERT     = False   # True to invert the signal (when using NPN transistor 
 # color1 - first color
 # color2 - second color
 # countPixelColor1 - count of pixels for color1, the count of pixels for color 2 will be calculated by LED_COUNT. Should be smaller than LED_COUNT
-def twoColorRotationLamp(strip, color1, color2, countPixelColor1):
+# timeValue - time to switch to the next pixel
+def twoColorRotationLamp(strip, color1, color2, countPixelColor1, timeValue):
   f = 1
   # loop for all needed pixels
   while 1: # endless loop	
@@ -29,14 +30,14 @@ def twoColorRotationLamp(strip, color1, color2, countPixelColor1):
       for h in range(0, countPixelColor1, +1):
         strip.setPixelColor(h,color1)
         strip.show()
-        time.sleep(0.05)
+        time.sleep(timeValue)
       f = f+1
     # now move the first color to the right and add the second color on the left
     for i in range(countPixelColor1,strip.numPixels(), +1):
       strip.setPixelColor(i, color1)
       strip.setPixelColor(i-countPixelColor1,color2)
       strip.show()
-      time.sleep(0.05)
+      time.sleep(timeValue)
     
     # the following loop realized the animation of a coolection of pixels
     # with the same color over the end of the strip and starting again
@@ -45,7 +46,7 @@ def twoColorRotationLamp(strip, color1, color2, countPixelColor1):
       strip.setPixelColor(k, color2)
       strip.setPixelColor((strip.numPixels()-k-countPixelColor1)*-1, color1)
       strip.show()
-      time.sleep(0.05)
+      time.sleep(timeValue)
  
 
 # Main program logic follows:
@@ -58,4 +59,4 @@ if __name__ == '__main__':
 	print ('Press Ctrl-C to quit.')
 	while True:
 		# Color wipe animations.
-                twoColorRotationLamp(strip, Color(0,255,0), Color(0,0,255), 15)
+                twoColorRotationLamp(strip, Color(255,0,0), Color(0,0,255), 30, 0.055)
