@@ -18,36 +18,35 @@ LED_INVERT     = False   # True to invert the signal (when using NPN transistor 
 # strip - the strip object a connected strip
 # color1 - first color
 # color2 - second color
-# countPixelColor1 - count of pixels for color1, the count of pixels for color 2 will be calculated by LED_COUNT
+# countPixelColor1 - count of pixels for color1, the count of pixels for color 2 will be calculated by LED_COUNT. Should be smaller than LED_COUNT
 def twoColorRotationLamp(strip, color1, color2, countPixelColor1):
+  f = 1
   # loop for all needed pixels
-  for i in range(countPixelColor1-1, strip.numPixels()):
-    strip.setPixelColor(i, color1)  # set first pixel with color1 starting at the latest pixel
+  while 1: # endless loop	
+    # fill the first pixels up to countPixelColor1
+    # but only one time (f)
+    while f == 1: 
+      for h in range(0, countPixelColor1, +1):
+        strip.setPixelColor(h,color1)
+        strip.show()
+        time.sleep(0.05)
+      f = f+1
+    # now move the first color to the right and add the second color on the left
+    for i in range(countPixelColor1,strip.numPixels(), +1):
+      strip.setPixelColor(i, color1)
+      strip.setPixelColor(i-countPixelColor1,color2)
+      strip.show()
+      time.sleep(0.05)
     
-    # set all pixel before with the same color 1
-    for j in range(i-1, i-countPixelColor1, -1): 
-      strip.setPixelColor(j, color1)
-    
-    # now set all pixels before colored1 pixels with color2
-    # (for the first loop, it makes no sence, because there is no pixel before position 0,
-    # but after the first loop, we now can switch the first pixel from color1 to color2
-    strip.setPixelColor(i-countPixelColor1, color2) 
-    strip.show()  # activate now all pixels with configured colors
-    time.sleep(1.0125) # wait some (animation) time
-
-  # the following loop realized the animation of a coolection of pixels
-  # with the same color over the end of the strip and starting again
-  # at the beginning on the strip
-  # we animated now the first setup pixel to the end of the strip
-  # so we switched the color of the last pixel of this color collection to color 2
-  # and do this step by step for all the other pixels with the same color
-  # additionally we start again with color 1 at the first pixel of the strip
-  for k in range(strip.numPixels()-countPixelColor1-1, strip.numPixels()):
-    strip.setPixelColor(k, color2)
-    strip.setPixelColor((strip.numPixels()-k-countPixelColor1)*-1, color1)
-    strip.show()
-    time.sleep(1.0125)
-
+    # the following loop realized the animation of a coolection of pixels
+    # with the same color over the end of the strip and starting again
+    # at the beginning on the strip
+    for k in range(strip.numPixels()-countPixelColor1, strip.numPixels()):
+      strip.setPixelColor(k, color2)
+      strip.setPixelColor((strip.numPixels()-k-countPixelColor1)*-1, color1)
+      strip.show()
+      time.sleep(0.05)
+ 
 
 # Main program logic follows:
 if __name__ == '__main__':
@@ -59,4 +58,4 @@ if __name__ == '__main__':
 	print ('Press Ctrl-C to quit.')
 	while True:
 		# Color wipe animations.
-                twoColorRotationLamp(strip, Color(0,255,0), Color(0,0,255), 30)
+                twoColorRotationLamp(strip, Color(0,255,0), Color(0,0,255), 15)
