@@ -1,3 +1,4 @@
+
 # rotation lamp for two colors
 # Author: Philipp Homann 
 #
@@ -12,9 +13,9 @@ LED_COUNT      = 60      # Number of LED pixels on stripe.
 LED_PIN        = 18      # GPIO pin connected to the pixels (must support PWM!).
 LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
 LED_DMA        = 5       # DMA channel to use for generating signal (try 5)
-LED_BRIGHTNESS = 25     # Set to 0 for darkest and 255 for brightest
+LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
-LED_TIME       = 0.015   # animation time (time from one pixel to the next
+LED_TIME       = 0.035   # animation time (time from one pixel to the next
 LED_START_PIXEL = 0     # where we want to start the animation on stripe
 LED_END_PIXEL = 12      # where we want to end the animation on strip
 LED_COLOR1         = Color(255,0,0)
