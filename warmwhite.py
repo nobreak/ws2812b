@@ -7,19 +7,19 @@ import colorsys
 from neopixel import *
 from thread import start_new_thread
 from threading import Thread
+from random import randint
 
 # LED strip configuration:
-LED_COUNT      = 54      # Number of LED pixels on stripe.
+LED_COUNT      = 60      # Number of LED pixels on stripe.
 LED_PIN        = 18      # GPIO pin connected to the pixels (must support PWM!).
 LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
 LED_DMA        = 5       # DMA channel to use for generating signal (try 5)
-LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
+LED_BRIGHTNESS = 255    # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 LED_TIME       = 0.055   # animation time (time from one pixel to the next
 LED_START_PIXEL = 0     # where we want to start the animation on stripe
 LED_END_PIXEL = 12      # where we want to end the animation on strip
-LED_COLOR1         = Color(255,0,0)
-LED_COLOR2         = Color(0,0,255)
+LED_COLOR1         = Color(192,64,1)
 COUNT_PIXEL_FIRST_COLOR = 6 # count how much pixels the fist color is long, second color count is the difference with LED_COUNT
 LED_ROWS       = 5
 
@@ -53,6 +53,19 @@ def setPixelBrightness(strip, pixel, brightness):
   # set new pixel color with RGB
   strip.setPixelColor(pixel, Color(int(r),int(g),int(b)))
 
+def randomPixel(strip, color, countLED):
+
+  reset(strip)
+  while 1:
+    pixel = randint(0,countLED)
+    strip.setPixelColor(pixel, color)
+    strip.show()
+    time.sleep(2)
+
+    for b in range(255,0,-1):
+      setPixelBrightness(strip,pixel,b)
+      strip.show()
+      time.sleep(0.015)
 
 
 def testDimming(strip, color):
@@ -77,3 +90,4 @@ if __name__ == '__main__':
 	while True:
 		# Color wipe animations.
                 testDimming(strip, LED_COLOR1)
+                #randomPixel(strip, LED_COLOR1, LED_COUNT)
